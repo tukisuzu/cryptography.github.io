@@ -277,6 +277,7 @@ export class Channel {
    */
   send = async data => {
     if (!this.isConnect) { return null; }
+    // console.log("send", data);
     const ciphertext = await this.shortKey.encryptMessageString(data);
     return this.createMessage(0, {
       ciphertext,
@@ -298,10 +299,13 @@ export class Channel {
       !receiveMessage.ciphertext
     ) { return null; }
     const prevReceiveResolve = this.receiveResolve;
-    receivePromise = new Promise(resolve => this.receiveResolve = resolve);
+    this.receivePromise = new Promise(resolve => this.receiveResolve = resolve);
     prevReceiveResolve();
+    const now = Date.now();
+    if (this.lastReceive < now) { this.lastReceive = now; }
     return await this.shortKey.decryptMessageString(receiveMessage.ciphertext);
   };
+  lastReceive = -Infinity;
   receiveResolve;
   receivePromise = new Promise(resolve => this.receiveResolve = resolve);
 }

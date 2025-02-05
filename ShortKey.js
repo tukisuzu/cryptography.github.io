@@ -336,6 +336,14 @@ class ShortKey {
    * @returns {Promise<Uint8Array>} エクスポートされた秘密鍵
    */
   exportPrivateKey = async () => await this.constructor.exportKey(this.privateKey, false);
+  /**
+   * 相手の公開鍵をエクスポートする  
+   * @method
+   * @async
+   * @public
+   * @returns {Promise<Uint8Array>} エクスポートされた公開鍵
+   */
+  exportOtherPublicKey = async () => await this.constructor.exportKey(this.otherPublicKey, true);
 
   /**
    * 公開鍵をエクスポートする  
@@ -355,6 +363,14 @@ class ShortKey {
    * @returns {Promise<string>} エクスポートされた秘密鍵
    */
   exportPrivateKeyString = async () => BufferToBase64.encode(await this.exportPrivateKey());
+  /**
+   * 相手の公開鍵をエクスポートする  
+   * @method
+   * @async
+   * @public
+   * @returns {Promise<string>} エクスポートされた公開鍵
+   */
+  exportOtherPublicKeyString = async () => BufferToBase64.encode(await this.exportOtherPublicKey());
 
 
   /**

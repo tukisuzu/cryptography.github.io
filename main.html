@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>会話</title>
+  <link rel="stylesheet" type="text/css" href="./main.css">
+</head>
+
+<body>
+  <div class="wrapper">
+    <main>
+      <section id="home" style="display: none;">
+        <h2>ホーム</h2>
+        <div>
+          <label for="newAddress">会話相手のアドレスを追加:</label>
+          <input type="text" id="newAddress">
+          <label for="alias">別名:</label>
+          <input type="text" id="alias">
+          <button id="addAddress">追加</button>
+        </div>
+        <div>
+          <label for="addressList">会話相手を選択:</label>
+          <select id="addressList"></select>
+          <button id="editAlias">別名を変更</button>
+        </div>
+        <div id="conversation" class="conversation">
+          <!-- 会話内容を表示 -->
+        </div>
+        <div class="message-input">
+          <textarea id="message" placeholder="メッセージを入力..."></textarea>
+          <button id="sendMessage">送信</button>
+        </div>
+      </section>
+      <section id="setting">
+        <h2>設定</h2>
+        <button id="generateKey">鍵の生成</button>
+        <div>
+          <label for="inputPublicKey">公開鍵の入力:</label>
+          <input type="text" id="inputPublicKey">
+        </div>
+        <div>
+          <label for="inputPrivateKey">秘密鍵の入力:</label>
+          <input type="text" id="inputPrivateKey">
+        </div>
+        <div><button id="importKey">鍵のインポート</button></div>
+        <div><button id="exportKey">鍵の出力</button></div>
+        <div><textarea id="outputKey" readonly></textarea></div>
+        <button id="downloadKey">鍵のダウンロード</button>
+      </section>
+    </main>
+    <footer>
+      <button id="homeButton">
+        <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="ホーム" width="24" height="24">
+        <span>ホーム</span>
+      </button>
+      <button id="settingButton">
+        <img src="https://cdn-icons-png.flaticon.com/512/126/126472.png" alt="設定" width="24" height="24">
+        <span>設定</span>
+      </button>
+    </footer>
+  </div>
+  <div id="loading-screen">読み込み中...</div>
+  <script src="./main.js" type="module"></script>
+</body>
+
+</html>
