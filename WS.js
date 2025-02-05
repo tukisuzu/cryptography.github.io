@@ -1,8 +1,11 @@
 import Achex from "./Achex.js";
 import Terminal from "./Terminal.js";
+import RateLimiter from "./RateLimiter.mjs";
 
 export class WS {
-  constructor() { }
+  constructor() {
+    this.rateLimiter = new RateLimiter(100);
+  }
   connectPromise = Promise.resolve();
   initialize = async () => {
     this.achex = new Achex();
@@ -26,6 +29,7 @@ export class WS {
     await joinHubPromise;
   };
   toH = async data => {
+    await this.rateLimiter.task();
     await this.connectPromise;
     return this.achex.toH(data);
   };

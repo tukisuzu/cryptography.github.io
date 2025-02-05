@@ -227,7 +227,7 @@ export class Terminal {
       }
     }
   };
-  byteLimit = 1024 ** 3;
+  byteLimit = 1024;
   sendSub = async (address, type, data, filename) => {
     // console.log(data);
     const channel = this.channelMap.get(address);
@@ -250,7 +250,7 @@ export class Terminal {
           for (let retry = 0; retry < 3; retry++) {
             let resolve;
             const promise = new Promise(r => resolve = r);
-            indexMap.set(j, resolve);
+            indexMap.set(i, resolve);
             this.sendHandler(JSON.stringify(await channel.send(JSON.stringify({
               type,
               data: BufferToBase64.encode(encodeText.slice(j, j += this.byteLimit)),
@@ -275,7 +275,7 @@ export class Terminal {
           for (let retry = 0; retry < 3; retry++) {
             let resolve;
             const promise = new Promise(r => resolve = r);
-            indexMap.set(r, resolve);
+            indexMap.set(i, resolve);
             this.sendHandler(JSON.stringify(await channel.send(JSON.stringify({
               type,
               data: BufferToBase64.encode(encodeText.slice(r)),
@@ -330,7 +330,7 @@ export class Terminal {
           for (let retry = 0; retry < 3; retry++) {
             let resolve;
             const promise = new Promise(r => resolve = r);
-            indexMap.set(j, resolve);
+            indexMap.set(i, resolve);
             this.sendHandler(JSON.stringify(await channel.send(JSON.stringify({
               type,
               data: BufferToBase64.encode(data.slice(j, j += this.byteLimit)),
@@ -356,7 +356,7 @@ export class Terminal {
           for (let retry = 0; retry < 3; retry++) {
             let resolve;
             const promise = new Promise(r => resolve = r);
-            indexMap.set(r, resolve);
+            indexMap.set(i, resolve);
             this.sendHandler(JSON.stringify(await channel.send(JSON.stringify({
               type,
               data: BufferToBase64.encode(data.slice(r)),
@@ -416,6 +416,7 @@ export class Terminal {
     const data = JSON.parse(await channel.receive(receiveData));
     if (data === null) { return result; }
     if (data.type === "ok") {
+      console.log(data);
       const index = channel.indexMap.get(data.index);
       if (data.sequence != null) {
         const resolve = index.get(data.sequence);
